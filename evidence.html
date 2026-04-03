@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Understanding the Numbers — 179 Gridlock</title>
+<meta name="description" content="What V/C ratios and Level of Service grades mean, why roundabout averages hide failures, and the full data from eight traffic studies in the 179th Street corridor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf8;
+    --slate: #4a4a5a;
+    --muted: #7a7a8a;
+    --rule: #d4d4d8;
+    --red: #b91c1c;
+    --red-light: #fef2f2;
+    --red-dark: #991b1b;
+    --blue: #1e3a5f;
+    --blue-light: #eff6ff;
+    --amber: #92400e;
+    --amber-bg: #fffbeb;
+    --green: #166534;
+    --green-bg: #f0fdf4;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-brand span { color: var(--red); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: var(--slate);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .back-link {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--blue);
+    text-decoration: none;
+    margin-bottom: 24px;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  /* ─── LAYOUT ─── */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+  .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 40px; }
+
+  /* ─── TYPOGRAPHY ─── */
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4.5vw, 48px);
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.5vw, 36px);
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-family: var(--sans);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    margin-top: 36px;
+  }
+  p { margin-bottom: 18px; color: var(--slate); }
+  strong { color: var(--ink); }
+  section { padding: 64px 0; }
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  /* ─── HERO ─── */
+  .page-hero {
+    padding: 80px 40px 60px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* ─── CALLOUT ─── */
+  .callout {
+    border-left: 4px solid var(--red);
+    background: var(--red-light);
+    padding: 24px 28px;
+    margin: 28px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .callout p { color: var(--red-dark); font-weight: 500; margin-bottom: 0; }
+  .callout.blue { border-left-color: var(--blue); background: var(--blue-light); }
+  .callout.blue p { color: var(--blue); }
+  .callout.amber { border-left-color: var(--amber); background: var(--amber-bg); }
+  .callout.amber p { color: var(--amber); }
+  .callout.green { border-left-color: var(--green); background: var(--green-bg); }
+  .callout.green p { color: var(--green); }
+
+  /* ─── VC BAR VISUAL ─── */
+  .vc-demo { margin: 32px 0; }
+  .vc-bar-container {
+    background: #e5e7eb;
+    border-radius: 8px;
+    height: 48px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .vc-bar-fill {
+    height: 100%;
+    border-radius: 8px 0 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 12px;
+    font-weight: 700;
+    font-size: 15px;
+    color: white;
+    transition: width 0.6s ease;
+  }
+  .vc-bar-fill.green { background: #22c55e; }
+  .vc-bar-fill.yellow { background: #eab308; color: var(--ink); }
+  .vc-bar-fill.red { background: var(--red); }
+  .vc-bar-fill.over { background: #7f1d1d; border-radius: 8px; }
+  .vc-threshold {
+    position: absolute;
+    left: 90%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--ink);
+    z-index: 2;
+  }
+  .vc-threshold-label {
+    position: absolute;
+    left: 90%;
+    top: -22px;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .vc-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  /* ─── LOS TABLE ─── */
+  .los-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+  }
+  .los-table th {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 14px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .los-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 15px;
+    color: var(--slate);
+    vertical-align: top;
+  }
+  .los-grade {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+  }
+  .los-a { background: #22c55e; }
+  .los-b { background: #84cc16; }
+  .los-c { background: #eab308; color: var(--ink); }
+  .los-d { background: #f97316; }
+  .los-e { background: #ef4444; }
+  .los-f { background: #7f1d1d; }
+
+  /* ─── ROUNDABOUT VISUAL ─── */
+  .roundabout-example {
+    background: white;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 32px;
+    margin: 32px 0;
+  }
+  .roundabout-example h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .approach-card {
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px solid var(--rule);
+  }
+  .approach-card.fail {
+    background: var(--red-light);
+    border-color: var(--red);
+  }
+  .approach-card.pass {
+    background: var(--green-bg);
+    border-color: #86efac;
+  }
+  .approach-card.warn {
+    background: var(--amber-bg);
+    border-color: #fbbf24;
+  }
+  .approach-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .approach-card.fail .approach-label { color: var(--red); }
+  .approach-card.pass .approach-label { color: var(--green); }
+  .approach-card.warn .approach-label { color: var(--amber); }
+  .approach-metric {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .approach-detail {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .overall-result {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--blue-light);
+    border-radius: 6px;
+    border: 1px solid #bfdbfe;
+  }
+  .overall-result .result-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .overall-result .result-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--blue);
+  }
+  .overall-result .result-note {
+    font-size: 14px;
+    color: var(--slate);
+  }
+
+  /* ─── DATA TABLES ─── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 14px;
+  }
+  .data-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--ink);
+    white-space: nowrap;
+  }
+  .data-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    color: var(--slate);
+  }
+  .data-table .segment-name { font-weight: 600; color: var(--ink); }
+  .fail-badge {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .warn-badge {
+    display: inline-block;
+    background: #d97706;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .watch-badge {
+    display: inline-block;
+    background: #ca8a04;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .section-divider {
+    font-weight: 700;
+    color: var(--ink);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding-top: 16px;
+    border-top: 2px solid var(--ink);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 48px 40px;
+    text-align: center;
+  }
+  footer p { font-size: 14px; color: var(--muted); max-width: 640px; margin: 0 auto 8px; }
+  footer a { color: var(--slate); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .page-hero { padding: 50px 20px 40px; }
+    .container, .container-narrow { padding: 0 20px; }
+    .approach-grid { grid-template-columns: 1fr; }
+    .data-table { font-size: 13px; }
+    .data-table th, .data-table td { padding: 8px 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="/" class="nav-brand">179<span>Gridlock</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="#basics">V/C &amp; LOS</a>
+    <a href="#roundabouts">Roundabouts</a>
+    <a href="#data">Full Data</a>
+    <a href="#missing">What&rsquo;s Missing</a>
+  </div>
+</nav>
+
+<!-- ─── PAGE HERO ─── -->
+<div class="page-hero">
+  <a href="/" class="back-link">&larr; Back to 179Gridlock.com</a>
+  <h1>Understanding the Numbers</h1>
+  <p>
+    The traffic studies for the 179th corridor are hundreds of pages of technical analysis. 
+    This page explains what the key numbers mean, why some of them are misleading, and what the 
+    full data actually shows. Everything here is sourced from the eight developer-commissioned 
+    traffic studies and Clark County&rsquo;s own concurrency code.
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 1: V/C AND LOS BASICS              -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="basics" style="border-top: 1px solid var(--rule);">
+  <div class="container-narrow">
+    <div class="section-label">The Basics</div>
+    <h2>Two numbers that determine whether development gets approved</h2>
+
+    <h3>Volume-to-Capacity Ratio (V/C)</h3>
+    <p>
+      V/C is the simplest concept in traffic engineering: how much traffic is on the road 
+      compared to how much it can handle. A V/C of 0.50 means the road is half full. 
+      A V/C of 1.00 means it&rsquo;s at capacity. Anything over 1.00 means more vehicles are 
+      trying to use it than it can physically process.
+    </p>
+    <p>
+      <strong>Clark County&rsquo;s threshold is V/C = 0.90.</strong> Anything above that is 
+      considered failing. That 10% buffer exists because traffic isn&rsquo;t perfectly smooth&mdash;small 
+      disruptions cascade quickly once a road is near capacity.
+    </p>
+
+    <!-- V/C Bar Visual -->
+    <div class="vc-demo">
+      <div style="position: relative; margin-bottom: 32px;">
+        <div class="vc-threshold-label">0.90 threshold</div>
+        <div class="vc-bar-container">
+          <div class="vc-threshold"></div>
+          <div class="vc-bar-fill green" style="width: 50%;">0.50</div>
+        </div>
+        <div class="vc-bar-label"><span>Plenty of room</span><span></span></div>
+
+        <div class="vc-bar-container">
+          <div class="vc-threshold"></div>
+          <div class="vc-bar-fill yellow" style="width: 80%;">0.80</div>
+        </div>
+        <div class="vc-bar-label"><span>Getting busy</span><span></span></div>
+
+        <div class="vc-bar-container">
+          <div class="vc-threshold"></div>
+          <div class="vc-bar-fill red" style="width: 90%;">0.90</div>
+        </div>
+        <div class="vc-bar-label"><span>At the County&rsquo;s failure threshold</span><span></span></div>
+
+        <div class="vc-bar-container">
+          <div class="vc-threshold"></div>
+          <div class="vc-bar-fill over" style="width: 100%;">1.17</div>
+        </div>
+        <div class="vc-bar-label"><span>NE 179th St (I-5 to 15th Ave) &mdash; actual 2028 projection</span><span></span></div>
+      </div>
+    </div>
+
+    <p>
+      The V/C ratio is what the County uses to evaluate road <em>segments</em>&mdash;stretches 
+      of road between intersections. When a traffic study says a segment is &ldquo;failing,&rdquo; 
+      it means the V/C exceeds 0.90.
+    </p>
+
+    <h3>Level of Service (LOS)</h3>
+    <p>
+      LOS is a letter grade from A to F that measures how long you wait at an intersection. 
+      It&rsquo;s based on seconds of delay per vehicle. Think of it like a report card for 
+      your commute:
+    </p>
+
+    <table class="los-table">
+      <thead>
+        <tr>
+          <th>Grade</th>
+          <th>What It Means</th>
+          <th>Delay (signalized)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="los-grade los-a">A</span></td>
+          <td>Free flow. Minimal waiting.</td>
+          <td>&le; 10 seconds</td>
+        </tr>
+        <tr>
+          <td><span class="los-grade los-b">B</span></td>
+          <td>Slight delays. Still comfortable.</td>
+          <td>10&ndash;20 seconds</td>
+        </tr>
+        <tr>
+          <td><span class="los-grade los-c">C</span></td>
+          <td>Moderate delays. Noticeable congestion.</td>
+          <td>20&ndash;35 seconds</td>
+        </tr>
+        <tr>
+          <td><span class="los-grade los-d">D</span></td>
+          <td>Significant delays. Approaching instability.</td>
+          <td>35&ndash;55 seconds</td>
+        </tr>
+        <tr>
+          <td><span class="los-grade los-e">E</span></td>
+          <td>At or near capacity. Long waits. The County&rsquo;s minimum standard for unsignalized intersections.</td>
+          <td>55&ndash;80 seconds</td>
+        </tr>
+        <tr>
+          <td><span class="los-grade los-f">F</span></td>
+          <td>Gridlock. Demand exceeds capacity. Multiple signal cycles to clear.</td>
+          <td>&gt; 80 seconds</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>How V/C and LOS relate&mdash;and where they diverge</h3>
+    <p>
+      V/C measures how <strong>full</strong> the road is. LOS measures how <strong>long you 
+      wait</strong>. They usually track together&mdash;a full road means long waits. But at 
+      roundabouts, they can tell completely different stories. That&rsquo;s where the County&rsquo;s 
+      system breaks down.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 2: ROUNDABOUTS                      -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="roundabouts" style="background: white; border-top: 1px solid var(--rule);">
+  <div class="container-narrow">
+    <div class="section-label">The Roundabout Problem</div>
+    <h2>Why an intersection graded &ldquo;A&rdquo; can actually be failing</h2>
+
+    <p>
+      Roundabouts are designed for high throughput with low delay. Traffic flows continuously 
+      instead of stopping at a red light. That means even a very busy roundabout can report 
+      low average delay&mdash;and therefore a good LOS letter grade&mdash;while individual 
+      approaches are completely overwhelmed.
+    </p>
+    <p>
+      The reason is simple: <strong>roundabout LOS is a volume-weighted average</strong> across 
+      all approaches. If 1,700 vehicles on NE 179th sail through at LOS A, and 700 vehicles 
+      trying to enter from the I-5 ramp are stuck at LOS F with 88-second delays, the average 
+      comes out to LOS C. The report says &ldquo;LOS C&rdquo; and staff use that to conclude 
+      the intersection is operating acceptably.
+    </p>
+    <p>
+      Here&rsquo;s what that actually looks like, using real data from the Three Creeks East 
+      traffic study:
+    </p>
+
+    <!-- Roundabout Example: I-5 NB Ramps -->
+    <div class="roundabout-example">
+      <h4>NE 179th Street at I-5 NB Ramps &mdash; 2028 PM Peak Hour</h4>
+
+      <div class="approach-grid">
+        <div class="approach-card fail">
+          <div class="approach-label">I-5 NB Ramps (South)</div>
+          <div class="approach-metric">V/C 1.168 &middot; LOS F</div>
+          <div class="approach-detail">88-second delay &middot; 1,871 ft queue &middot; 2,018 vehicles</div>
+        </div>
+        <div class="approach-card pass">
+          <div class="approach-label">NE 179th Street (East)</div>
+          <div class="approach-metric">V/C 0.565 &middot; LOS A</div>
+          <div class="approach-detail">6-second delay &middot; 1,707 vehicles</div>
+        </div>
+        <div class="approach-card pass">
+          <div class="approach-label">NE 179th Street (West)</div>
+          <div class="approach-metric">V/C 0.285 &middot; LOS A</div>
+          <div class="approach-detail">4-second delay &middot; 743 vehicles</div>
+        </div>
+        <div class="approach-card warn">
+          <div class="approach-label">Overall Intersection</div>
+          <div class="approach-metric">V/C 1.168 &middot; LOS C</div>
+          <div class="approach-detail">30-second average delay &middot; 4,468 total vehicles</div>
+        </div>
+      </div>
+
+      <div class="overall-result">
+        <div>
+          <div class="result-label">What Staff Report</div>
+          <div class="result-value">LOS C &mdash; Acceptable</div>
+        </div>
+        <div class="result-note">
+          &hellip;while 2,018 vehicles on the I-5 approach face LOS F with queues 
+          backing up a third of a mile.
+        </div>
+      </div>
+    </div>
+
+    <h3>The 85% design threshold</h3>
+    <p>
+      Engineering practice holds that roundabouts should be designed to operate at or below 
+      <strong>85% of their theoretical capacity (V/C 0.85)</strong>. Above that, performance 
+      degrades rapidly&mdash;small increases in volume produce disproportionate increases in 
+      delay, and the roundabout becomes unreliable. Several approaches in the corridor studies 
+      are already well above this threshold.
+    </p>
+
+    <div class="callout amber">
+      <p>
+        <strong>Why this matters for concurrency:</strong> Clark County staff use intersection-level 
+        LOS grades to override failing corridor V/C ratios. This practice has no basis in the County&rsquo;s 
+        concurrency code&mdash;it is an administrative practice that staff have applied for years 
+        without code authorization. When a road segment shows V/C above 
+        0.90, staff check the bounding intersection. If the intersection reports an acceptable LOS 
+        letter grade, the segment failure is dismissed. At roundabout intersections, the overall LOS 
+        will almost always look acceptable&mdash;because the averaging math guarantees it. The result 
+        is that a roundabout designed for a road that doesn&rsquo;t exist yet is used to justify 
+        approving development on a road that&rsquo;s already failing.
+      </p>
+    </div>
+
+    <h3>The same intersection, two different answers</h3>
+    <p>
+      At the I-5 NB Ramps roundabout, the Towhee Creek study found V/C 0.822 and LOS A (passing). 
+      The NE 174th Street study&mdash;prepared by the same consulting firm, using the same horizon 
+      year&mdash;found V/C 1.138 and LOS F (failing). The difference: roughly 87 vehicles per hour 
+      in background traffic assumptions.
+    </p>
+    <p>
+      Part of the reason for that difference is that five traffic studies were prepared during 
+      the same time period and none of them count each other&rsquo;s traffic. The code requires 
+      in-process developments to be included in background assumptions&mdash;but it isn&rsquo;t 
+      happening. So the 87-vehicle gap isn&rsquo;t just an unexplained discrepancy&mdash;it&rsquo;s 
+      likely a larger failure than either study shows, because both are missing trips from the 
+      other concurrent applications. The system has no mechanism to reconcile these contradictory 
+      results, and both studies were used to support development approvals.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 3: FULL DATA TABLES                 -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="data" style="border-top: 1px solid var(--rule);">
+  <div class="container">
+    <div class="section-label">The Full Picture</div>
+    <h2>Every failing road segment and intersection across eight studies</h2>
+
+    <p style="max-width: 720px;">
+      The tables below compile every road segment at V/C 0.80 or above and every intersection 
+      at LOS E or worse from all eight developer-commissioned traffic studies in the corridor. 
+      These are the numbers the County uses to make concurrency determinations. All conditions 
+      shown are <strong>background or existing</strong>&mdash;before any new project trips are added.
+    </p>
+
+    <!-- Road Segments Table -->
+    <h3 style="margin-top: 48px;">Road Segments (V/C &ge; 0.80)</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Segment</th>
+          <th>Dir</th>
+          <th>V/C</th>
+          <th>Condition</th>
+          <th>Status</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="6" class="section-divider">NE 179th Street Corridor</td></tr>
+        <tr>
+          <td class="segment-name">NE 10th Ave (189th&ndash;179th)</td>
+          <td>NB</td>
+          <td>1.33</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Multiple studies</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 179th St (I-5 to 15th Ave)</td>
+          <td>EB</td>
+          <td>1.17</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 179th St (I-5 to 15th Ave)</td>
+          <td>EB</td>
+          <td>1.14</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Four Creeks North</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 50th Ave (179th&ndash;174th)</td>
+          <td>NB</td>
+          <td>1.13</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 179th St (NB Ramp&ndash;12th Ave)</td>
+          <td>EB</td>
+          <td>1.12&ndash;1.13</td>
+          <td>2029 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Ridgefield MS</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 15th Ave (179th&ndash;189th)</td>
+          <td>NB</td>
+          <td>1.07&ndash;1.08</td>
+          <td>2029 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Ridgefield MS</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 179th St (Delfel&ndash;I-5)</td>
+          <td>EB</td>
+          <td>1.06</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 179th St (Delfel&ndash;I-5)</td>
+          <td>EB</td>
+          <td>1.04</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Four Creeks North</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 10th Ave (199th&ndash;194th)</td>
+          <td>NB</td>
+          <td>1.01</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 179th St (12th&ndash;15th Ave)</td>
+          <td>EB</td>
+          <td>0.99&ndash;1.01</td>
+          <td>2029 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Ridgefield MS</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 15th Ave (179th&ndash;174th)</td>
+          <td>NB</td>
+          <td>0.99</td>
+          <td>2028 Bkgd</td>
+          <td><span class="warn-badge">AT LIMIT</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 15th Ave (179th&ndash;174th)</td>
+          <td>NB</td>
+          <td>0.98</td>
+          <td>2028 Bkgd</td>
+          <td><span class="warn-badge">AT LIMIT</span></td>
+          <td>Four Creeks North</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 10th Ave (199th&ndash;194th)</td>
+          <td>NB</td>
+          <td>0.94&ndash;0.97</td>
+          <td>2029 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Ridgefield MS</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 139th St (20th&ndash;23rd Ave)</td>
+          <td>EB</td>
+          <td>0.94</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE Delfel Rd (189th&ndash;179th)</td>
+          <td>SB</td>
+          <td>0.91</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+
+        <tr><td colspan="6" class="section-divider">Salmon Creek Area &mdash; Daily Destinations</td></tr>
+        <tr>
+          <td class="segment-name">NE 10th Ave (149th&ndash;139th)</td>
+          <td>NB</td>
+          <td>1.08</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Towhee Creek</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 139th St (10th&ndash;20th Ave)</td>
+          <td>EB</td>
+          <td>0.93</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Towhee Creek</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 10th/15th Ave (189th&ndash;179th)</td>
+          <td>NB</td>
+          <td>0.92</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Towhee Creek</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 139th St (20th&ndash;23rd Ave)</td>
+          <td>EB</td>
+          <td>0.92</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Towhee Creek</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Intersections Table -->
+    <h3 style="margin-top: 48px;">Intersections Failing or Near-Failing</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Intersection</th>
+          <th>Peak</th>
+          <th>LOS / V/C</th>
+          <th>Condition</th>
+          <th>Status</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="6" class="section-divider">LOS F &mdash; Failing</td></tr>
+        <tr>
+          <td class="segment-name">NE 179th / Delfel Rd</td>
+          <td>PM</td>
+          <td>LOS F</td>
+          <td>Existing (2025)</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 179th / NE 50th Ave</td>
+          <td>PM</td>
+          <td>LOS F</td>
+          <td>2027&ndash;2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Kozy Manor &amp; Three Creeks East</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 184th / NE 29th Ave</td>
+          <td>AM</td>
+          <td>LOS F</td>
+          <td>2029 Total</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Ridgefield MS</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 159th / NE 72nd Ave (WB approach)</td>
+          <td>PM</td>
+          <td>LOS F</td>
+          <td>2028 Bkgd</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>NE 174th Street</td>
+        </tr>
+
+        <tr><td colspan="6" class="section-divider">Hidden Failures &mdash; Roundabout Approaches Over Capacity</td></tr>
+        <tr>
+          <td class="segment-name">I-5 NB Ramps at 179th (SB approach)</td>
+          <td>PM</td>
+          <td>V/C 1.168 / LOS F</td>
+          <td>2028 Buildout</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 179th / NE 15th Ave (EB approach)</td>
+          <td>PM</td>
+          <td>V/C 1.210 / LOS F</td>
+          <td>2028 Buildout</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+
+        <tr><td colspan="6" class="section-divider">LOS E &mdash; One Step From Failure</td></tr>
+        <tr>
+          <td class="segment-name">NE 179th / NE 50th Ave</td>
+          <td>AM</td>
+          <td>LOS E</td>
+          <td>2028 Bkgd</td>
+          <td><span class="warn-badge">AT LIMIT</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+        <tr>
+          <td class="segment-name">NE 179th / Delfel Rd</td>
+          <td>AM</td>
+          <td>LOS E</td>
+          <td>Existing</td>
+          <td><span class="warn-badge">AT LIMIT</span></td>
+          <td>Three Creeks East</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size: 14px; color: var(--muted); margin-top: 12px;">
+      All conditions shown are background or existing&mdash;before any new project trips are added. 
+      &ldquo;Bkgd&rdquo; = background conditions (includes approved and in-process developments, 
+      plus growth, but not the subject project). Sources: Three Creeks East (Lancaster Mobley, June 2025), 
+      Four Creeks North (Lancaster Mobley, April 2025), Kozy Manor Estates (Kittelson, Feb 2025), 
+      NE 174th Street (Lancaster Mobley, Dec 2025), Towhee Creek (PLS Engineering, Dec 2025), 
+      Ridgefield MS (Kittelson, June 2024), Mt. Vista Logistics (TENW, Jan 2023), 
+      Anderson Dental (Lancaster Mobley, Aug 2025).
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- SECTION 4: WHAT'S MISSING                   -->
+<!-- ═══════════════════════════════════════════ -->
+<section id="missing" style="background: white; border-top: 1px solid var(--rule);">
+  <div class="container-narrow">
+    <div class="section-label">What&rsquo;s Missing</div>
+    <h2>These numbers are a floor, not a ceiling</h2>
+
+    <p>
+      Every number in the tables above understates the actual problem. Here&rsquo;s why.
+    </p>
+
+    <h3>Five studies don&rsquo;t count each other</h3>
+    <p>
+      Five traffic studies were prepared for corridor projects during the same time period. 
+      None of them include the traffic from the other four in their background assumptions. 
+      The County&rsquo;s code requires in-process developments to be included&mdash;but it 
+      isn&rsquo;t happening. Hundreds of peak-hour trips loading the same roads simply don&rsquo;t 
+      appear in each other&rsquo;s analysis. The same engineer prepared multiple studies using the 
+      same horizon year, and none included the others as &ldquo;in-process&rdquo; developments. 
+      If all concurrent applications were loaded simultaneously, V/C ratios would climb higher 
+      and segments currently shown as passing could cross the 0.90 threshold.
+    </p>
+
+    <div class="callout">
+      <p>
+        At the I-5 NB Ramps, the difference between &ldquo;passing&rdquo; and &ldquo;failing&rdquo; 
+        is 87 vehicles per hour. The missing cumulative trips from the five cross-excluded studies 
+        far exceed 87 vehicles.
+      </p>
+    </div>
+
+    <h3>Distance caps exclude the worst bottlenecks</h3>
+    <p>
+      A project generating fewer than 50 peak-hour trips only has to analyze roads within one 
+      mile. Most corridor developments fall into this category. The I-5 interchange&mdash;the 
+      corridor&rsquo;s biggest constraint&mdash;may fall outside that radius entirely. The 
+      Salmon Creek commercial district where residents shop, get gas, and see the doctor is 
+      also outside the study area for most projects. The GMA contains no geographic limitation 
+      on concurrency evaluation. The distance caps are a County-level creation.
+    </p>
+
+    <h3>Ghost capacity inflates the denominator</h3>
+    <p>
+      When a traffic study calculates V/C for a road segment, the &ldquo;capacity&rdquo; number 
+      used is based on the road as it&rsquo;s <em>planned</em> to exist&mdash;not as it exists today. 
+      NE 179th Street is physically a two-lane rural road (capacity ~600 vehicles per hour), but 
+      the Arterial Atlas designates it as a future multi-lane arterial (capacity 1,800 vehicles 
+      per hour). Using 1,800 as the denominator makes the V/C ratio look three times better than 
+      the actual road conditions warrant. One consultant&mdash;Kittelson, preparing the Kozy Manor 
+      study&mdash;correctly used the reduced capacity. The others used the inflated number.
+    </p>
+
+    <h3>Reserved trips aren&rsquo;t on the road yet</h3>
+    <p>
+      WSU Vancouver and commercial developments hold reserved trips under concurrency agreements 
+      and submitted plans. These trips are committed capacity&mdash;they count against the system&rsquo;s 
+      limits&mdash;but they&rsquo;re not generating traffic yet. Current traffic counts don&rsquo;t 
+      reflect the full committed load. When buildout occurs, the actual conditions will be worse 
+      than what current counts suggest.
+    </p>
+
+    <div class="callout blue">
+      <p>
+        <strong>Bottom line:</strong> The failure counts in these tables are the <em>minimum</em>. 
+        The actual number of failing segments and intersections is higher than what any single 
+        traffic study shows, because no single study captures the full cumulative picture. 
+        The code requires in-process developments to be counted. Staff override failing segments 
+        using a practice with no code authorization. The result isn&rsquo;t just a system that 
+        misses the problem&mdash;it&rsquo;s a system that bypasses its own rules to avoid finding one.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BACK TO HOME ─── -->
+<section style="border-top: 1px solid var(--rule); padding: 48px 0; text-align: center;">
+  <a href="/" style="display: inline-block; padding: 14px 28px; font-size: 15px; font-weight: 600; font-family: var(--sans); text-decoration: none; border-radius: 6px; background: var(--ink); color: white;">
+    &larr; Back to 179Gridlock.com
+  </a>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p><strong>179Gridlock.com</strong></p>
+  <p>
+    A public information resource about transportation concurrency in the NE 179th Street corridor, 
+    Clark County, Washington. All analysis is based on publicly available documents.
+  </p>
+  <p style="margin-top: 16px; font-size: 13px;">
+    &copy; 2026 &middot; <a href="mailto:info@179gridlock.com">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>
