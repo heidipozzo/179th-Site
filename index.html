@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>179 Gridlock — Clark County's Broken Infrastructure Promise</title>
+<meta name="description" content="In 2019, Clark County promised roads for the 179th Street corridor. The six-year deadline has passed. The roads aren't built. Development keeps getting approved. See the evidence.">
+<meta property="og:title" content="179 Gridlock — Clark County's Broken Infrastructure Promise">
+<meta property="og:description" content="Clark County promised roads for the 179th corridor in 2019. It's 2026 and they're still not built — but development keeps getting approved.">
+<meta property="og:url" content="https://179gridlock.com">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf8;
+    --slate: #4a4a5a;
+    --muted: #7a7a8a;
+    --rule: #d4d4d8;
+    --red: #b91c1c;
+    --red-light: #fef2f2;
+    --red-dark: #991b1b;
+    --blue: #1e3a5f;
+    --blue-light: #eff6ff;
+    --amber: #92400e;
+    --amber-bg: #fffbeb;
+    --green-dark: #166534;
+    --green-bg: #f0fdf4;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.65;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── ALERT BANNER ─── */
+  .alert-banner {
+    background: var(--red);
+    color: white;
+    text-align: center;
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .alert-banner a {
+    color: white;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .alert-banner strong {
+    font-weight: 700;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-brand {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-brand span { color: var(--red); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    color: var(--slate);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ─── LAYOUT ─── */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+  .container-narrow { max-width: 760px; margin: 0 auto; padding: 0 40px; }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 100px 40px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+    padding: 6px 14px;
+    background: var(--red-light);
+    border-radius: 4px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.12;
+    color: var(--ink);
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+  }
+  .hero-sub {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--slate);
+    max-width: 680px;
+    margin-bottom: 40px;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: var(--sans);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: white;
+  }
+  .btn-primary:hover { background: #2a2a3e; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--rule);
+  }
+  .btn-secondary:hover { border-color: var(--ink); }
+
+  /* ─── STATS ROW ─── */
+  .stats-section {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 56px 40px;
+    background: white;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .stat {
+    text-align: center;
+    padding: 0 20px;
+    border-right: 1px solid var(--rule);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-number {
+    font-family: var(--serif);
+    font-size: 40px;
+    color: var(--red);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 80px 0; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3.5vw, 38px);
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: var(--sans);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    margin-top: 40px;
+  }
+
+  p { margin-bottom: 18px; color: var(--slate); }
+
+  /* ─── CALLOUT ─── */
+  .callout {
+    border-left: 4px solid var(--red);
+    background: var(--red-light);
+    padding: 24px 28px;
+    margin: 32px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .callout p {
+    color: var(--red-dark);
+    font-weight: 500;
+    margin-bottom: 0;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .callout.blue {
+    border-left-color: var(--blue);
+    background: var(--blue-light);
+  }
+  .callout.blue p { color: var(--blue); }
+
+  .callout.amber {
+    border-left-color: var(--amber);
+    background: var(--amber-bg);
+  }
+  .callout.amber p { color: var(--amber); }
+
+  /* ─── MECHANISM CARDS ─── */
+  .mechanisms-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .mechanism-card {
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 32px;
+    background: white;
+    transition: box-shadow 0.2s;
+  }
+  .mechanism-card:hover {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .mechanism-number {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+  .mechanism-card h3 {
+    margin-top: 0;
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+  .mechanism-card p {
+    font-size: 15.5px;
+    margin-bottom: 0;
+    line-height: 1.6;
+  }
+
+  /* ─── TIMELINE TABLE ─── */
+  .timeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 32px 0;
+  }
+  .timeline-table th {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 12px 16px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .timeline-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--rule);
+    font-size: 15px;
+    color: var(--slate);
+    vertical-align: top;
+  }
+  .timeline-table tr:last-child td { border-bottom: none; }
+  .timeline-table .date-col {
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    width: 140px;
+  }
+  .fail-badge {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
+  }
+  .warn-badge {
+    display: inline-block;
+    background: #d97706;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.03em;
+  }
+  .late-badge {
+    display: inline-block;
+    background: var(--red-light);
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+  }
+
+  /* ─── ASKING FOR SECTION ─── */
+  .asks-list {
+    counter-reset: asks;
+    list-style: none;
+    margin: 32px 0;
+  }
+  .asks-list li {
+    counter-increment: asks;
+    display: flex;
+    gap: 20px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .asks-list li:last-child { border-bottom: none; }
+  .asks-list li::before {
+    content: counter(asks);
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ink);
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 50%;
+    margin-top: 2px;
+  }
+  .ask-content h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .ask-content p {
+    font-size: 15.5px;
+    margin-bottom: 0;
+  }
+
+  /* ─── COMP PLAN SECTION ─── */
+  .comp-plan-section {
+    background: var(--ink);
+    color: white;
+    padding: 80px 0;
+  }
+  .comp-plan-section .section-label { color: rgba(255,255,255,0.5); }
+  .comp-plan-section h2 { color: white; }
+  .comp-plan-section p { color: rgba(255,255,255,0.75); }
+  .comp-plan-section strong { color: white; }
+  .comp-plan-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+  .comp-plan-finding {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 28px;
+  }
+  .comp-plan-finding .finding-num {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ef4444;
+    margin-bottom: 10px;
+  }
+  .comp-plan-finding h4 {
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+  .comp-plan-finding p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    margin-bottom: 0;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ─── TAKE ACTION ─── */
+  .action-section { background: white; border-top: 1px solid var(--rule); }
+  .action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .action-card {
+    padding: 32px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    transition: box-shadow 0.2s;
+  }
+  .action-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+  .action-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--blue-light);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+  .action-card h3 {
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .action-card p {
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 48px 40px;
+    text-align: center;
+  }
+  footer p {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto 8px;
+  }
+  footer a { color: var(--slate); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 60px 20px 50px; }
+    .container, .container-narrow { padding: 0 20px; }
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .stat { border-right: none; padding: 12px 0; }
+    .mechanisms-grid { grid-template-columns: 1fr; }
+    .comp-plan-grid { grid-template-columns: 1fr; }
+    .action-grid { grid-template-columns: 1fr; }
+    .hero-cta { flex-direction: column; }
+    .btn { text-align: center; }
+    .alert-banner { font-size: 14px; padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── ALERT BANNER ─── -->
+<div class="alert-banner">
+  <strong>April 27, 2026:</strong> County Council votes on the Comprehensive Plan preferred alternative.
+  <a href="#action">Learn how to comment &rarr;</a>
+</div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="/" class="nav-brand">179<span>Gridlock</span></a>
+  <div class="nav-links">
+    <a href="#problem">The Problem</a>
+    <a href="#evidence">Evidence</a>
+    <a href="#compplan">Comp Plan</a>
+    <a href="#asks">What We Want</a>
+    <a href="#action">Take Action</a>
+    <a href="#about">About</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-label">NE 179th Street Corridor &middot; Clark County, WA</div>
+  <h1>They promised roads. They approved houses. The&nbsp;roads still aren&rsquo;t&nbsp;built.</h1>
+  <p class="hero-sub">
+    In 2019, Clark County lifted development restrictions on 2,200 acres along NE 179th Street, 
+    promising infrastructure would follow within six years. That deadline passed in November 2025. 
+    The roads are years behind schedule, tens of millions over original estimates, and 
+    development keeps getting approved.
+  </p>
+  <div class="hero-cta">
+    <a href="#problem" class="btn btn-primary">See how the system works &darr;</a>
+    <a href="#action" class="btn btn-secondary">What you can do</a>
+  </div>
+</div>
+
+<!-- ─── STATS ─── -->
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="stat">
+      <div class="stat-number">6+</div>
+      <div class="stat-label">Years past the infrastructure deadline</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">2,200</div>
+      <div class="stat-label">Acres opened for development in 2019</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">$227M+</div>
+      <div class="stat-label">In planned road projects, most years behind schedule</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">2,500+</div>
+      <div class="stat-label">Housing units approved or proposed since urban holding was lifted</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">LOS F</div>
+      <div class="stat-label">Failing grade at key intersections today and through 2028&mdash;even after planned road improvements</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── THE PROBLEM ─── -->
+<section id="problem">
+  <div class="container-narrow">
+    <div class="section-label">The Problem</div>
+    <h2>A concurrency system designed to never say&nbsp;no</h2>
+    <p>
+      Washington&rsquo;s Growth Management Act requires a simple deal: if you approve new development, 
+      the roads to serve it must be funded and in place within six years. That&rsquo;s the law. 
+      It&rsquo;s called &ldquo;concurrency.&rdquo;
+    </p>
+    <p>
+      Clark County has a concurrency system. On paper, it checks whether roads can handle new 
+      development before that development is approved. In practice, the system has structural 
+      features that make it nearly impossible for any project to fail&mdash;even when the roads 
+      are clearly inadequate.
+    </p>
+    <p>Here are the four mechanisms that make it work.</p>
+  </div>
+
+  <div class="container">
+    <div class="mechanisms-grid">
+      <div class="mechanism-card">
+        <div class="mechanism-number">Mechanism 1</div>
+        <h3>Ghost Capacity</h3>
+        <p>
+          Traffic studies measure congestion against the road <em>as it&rsquo;s planned to exist 
+          someday</em>&mdash;not as it exists today. NE 179th Street is physically a two-lane rural 
+          road with a capacity around 600 vehicles per hour. But the Arterial Atlas designates it 
+          as a future multi-lane arterial with a capacity of 1,800. Using the bigger number as the 
+          denominator makes a failing road look like it has plenty of room.
+        </p>
+      </div>
+      <div class="mechanism-card">
+        <div class="mechanism-number">Mechanism 2</div>
+        <h3>Limited Study Area</h3>
+        <p>
+          A small subdivision only has to analyze roads within one mile. The I-5 interchange&mdash;the 
+          corridor&rsquo;s biggest bottleneck&mdash;may fall outside that radius entirely. The state&rsquo;s 
+          Growth Management Act contains no geographic limitation on concurrency. The distance caps 
+          are a County creation that systematically excludes the most constrained points.
+        </p>
+      </div>
+      <div class="mechanism-card">
+        <div class="mechanism-number">Mechanism 3</div>
+        <h3>Credit for Unbuilt Roads</h3>
+        <p>
+          Developments get credit for road improvements listed in the six-year plan&mdash;even if 
+          those improvements haven&rsquo;t been built, funded, or designed. The same unbuilt projects 
+          cited to lift urban holding in 2019 are still being used to justify approvals in 2026. 
+          The NE 29th to NE 50th segment isn&rsquo;t even on the &ldquo;Reasonably Funded&rdquo; list. 
+          Worse, the I-5/179th interchange is a WSDOT project the County has no authority to build 
+          or guarantee&mdash;yet the County takes credit for it to approve local development.
+        </p>
+      </div>
+      <div class="mechanism-card">
+        <div class="mechanism-number">Mechanism 4</div>
+        <h3>No Cumulative Review</h3>
+        <p>
+          Each development is evaluated individually. Five traffic studies were prepared for corridor 
+          projects during the same time period&mdash;and none of them count the traffic from the other 
+          four. Hundreds of trips loading the same roads simply don&rsquo;t appear in each other&rsquo;s 
+          analysis. The same engineer prepared multiple studies using the same horizon year, and 
+          none included the others as &ldquo;in-process&rdquo; developments. This isn&rsquo;t a 
+          one-time oversight; it&rsquo;s how the system is structured.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-narrow" style="margin-top: 48px;">
+    <div class="callout" style="border-left-color: var(--ink); background: var(--blue-light);">
+      <p style="color: var(--blue);">
+        &ldquo;Based on the information contained in the Clark County Staff Report and timing of WSDOT 
+        funding for the interchange, <strong>WSDOT supports the staff report recommendation of denial 
+        for this proposal.</strong>&rdquo;<br>
+        <span style="font-weight: 400; font-size: 14px; display: block; margin-top: 8px;">
+          &mdash; WSDOT letter to Community Planning Director Oliver Orjiako, November 7, 2018 
+          &mdash; regarding the first urban holding lift application. WSDOT stated the interchange 
+          would not be operationally functional until 2028 and that it lacked capacity for additional 
+          development. This recommendation was never disclosed to the Planning Commission or County Council 
+          at any of the three 2019 hearings where urban holding was lifted.
+        </span>
+      </p>
+    </div>
+
+    <div class="callout">
+      <p>
+        &ldquo;When I first saw these corridor projects back when it was talked about as a package 
+        and my predecessors were discussing completing these in six years, I don&rsquo;t know of anyone 
+        who had done projects like these that thought that was possible.&rdquo;<br>
+        <span style="font-weight: 400; font-size: 14px; display: block; margin-top: 8px;">
+          &mdash; Ken Lader, Clark County Public Works Director, July 12, 2023 Council meeting
+        </span>
+      </p>
+    </div>
+
+    <h3>How the legal standard was softened</h3>
+    <p>
+      The GMA requires that transportation improvements be &ldquo;in place at the time of 
+      development&rdquo; or that a financial commitment be in place to complete them within six years. 
+      That means from day one, the financing must be reasonably committed&mdash;not that the County 
+      has six years to figure out how to pay for it. Across three proceedings in 2019, this standard 
+      was progressively weakened:
+    </p>
+    <p>
+      <strong>February 2019 (Planning Commission):</strong> The applicant&rsquo;s representative reframed 
+      the standard as whether &ldquo;there will be funding in place&rdquo;&mdash;not improvements, just funding.<br>
+      <strong>October 2019 (Planning Commission):</strong> Staff stated that &ldquo;State law allows 
+      development to happen when transportation improvements are reasonably funded in that six years.&rdquo; 
+      When asked if developments could be finished before infrastructure is in place, staff responded: &ldquo;Correct.&rdquo;
+    </p>
+    <p>
+      Neither the Community Planning Director nor the Senior Deputy Prosecuting Attorney&mdash;both 
+      present at all three hearings&mdash;corrected these characterizations.
+    </p>
+
+    <div class="callout amber">
+      <p>
+        <strong>Commissioner Bender:</strong> &ldquo;Is there a CPM, a Critical Path of Management, 
+        for completion of all these projects?&rdquo;<br><br>
+        <strong>Ahmad Qayoumi, Public Works Director:</strong> &ldquo;Our goal is to&hellip;start the 
+        design of all those projects at the same time and get the right-of-way and permit and 
+        environmental process cleared so by the time 2024, 2023 comes, then we&rsquo;re going to 
+        go construction.&rdquo;<br><br>
+        Randy Printz, the developers&rsquo; representative who had been meeting with County staff, 
+        WSDOT, and at least two County Councilors on a monthly basis since 2016, then confirmed: 
+        &ldquo;I just wanted to make sure that we weren&rsquo;t misleading you, that there isn&rsquo;t 
+        a true construction management plan sitting there that says, okay, we&rsquo;re going to 
+        start grading on this date and all those sorts of things.&rdquo;<br>
+        <span style="font-weight: 400; font-size: 14px; display: block; margin-top: 8px;">
+          &mdash; Planning Commission hearing, February 21, 2019. No construction plan existed. 
+          Urban holding was lifted that night on a 4-0 vote.
+        </span>
+      </p>
+    </div>
+
+    <h3>How fragile the numbers are</h3>
+    <p>
+      At the I-5 NB Ramps roundabout on 179th Street, the Towhee Creek study found V/C 0.822 and LOS A 
+      (passing). The NE 174th Street study&mdash;prepared by the same consulting firm, using the same 
+      horizon year&mdash;found V/C 1.138 and LOS F (failing) at the same intersection. The difference: 
+      roughly <strong>87 vehicles per hour</strong> in background traffic assumptions. That&rsquo;s the margin 
+      between &ldquo;approved&rdquo; and &ldquo;denied.&rdquo; And remember: five studies were prepared 
+      during the same time period without counting each other&rsquo;s traffic. The missing cumulative 
+      trips far exceed 87 vehicles. The system has no mechanism to reconcile these contradictory results.
+    </p>
+  </div>
+</section>
+
+<!-- ─── EVIDENCE SNAPSHOT ─── -->
+<section id="evidence" style="background: white; border-top: 1px solid var(--rule);">
+  <div class="container-narrow">
+    <div class="section-label">The Evidence</div>
+    <h2>What eight traffic studies actually show</h2>
+    <p>
+      Eight developer-commissioned traffic studies for projects in the 179th corridor&mdash;including 
+      both residential subdivisions and commercial development&mdash;document the same intersections 
+      and road segments failing under <strong>background conditions</strong>, before any new project 
+      trips are even added. These aren&rsquo;t isolated impacts. They&rsquo;re systemic failures 
+      confirmed by multiple independent studies.
+    </p>
+    <p>
+      Across all eight studies: <strong>17+ road segments exceed the County&rsquo;s 0.90 V/C 
+      threshold</strong>, <strong>6 intersections score LOS F</strong> (the worst grade), and 
+      <strong>multiple roundabout approaches are individually failing even when the overall 
+      intersection gets a passing grade</strong>&mdash;because roundabout LOS is reported as an 
+      average that masks catastrophic conditions on individual approaches.
+    </p>
+  </div>
+
+  <div class="container" style="margin-top: 32px;">
+    <table class="timeline-table">
+      <thead>
+        <tr>
+          <th>Facility</th>
+          <th>Metric</th>
+          <th>Condition</th>
+          <th>Status</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="date-col">NE 179th / Delfel Rd</td>
+          <td>LOS F</td>
+          <td>Existing (2025)</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East TIS</td>
+        </tr>
+        <tr>
+          <td class="date-col">NE 179th / NE 50th Ave</td>
+          <td>LOS F</td>
+          <td>2027&ndash;2028 Background</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Kozy Manor &amp; Three Creeks East TIS</td>
+        </tr>
+        <tr>
+          <td class="date-col">NE 179th (I-5 to 15th Ave)</td>
+          <td>V/C 1.17</td>
+          <td>2028 Background</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East TIS</td>
+        </tr>
+        <tr>
+          <td class="date-col">NE 10th Ave (189th&ndash;179th)</td>
+          <td>V/C 1.33</td>
+          <td>2028 Background</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Multiple studies</td>
+        </tr>
+        <tr>
+          <td class="date-col">NE 15th Ave (179th&ndash;174th)</td>
+          <td>V/C 0.99</td>
+          <td>2028 Background</td>
+          <td><span class="warn-badge">AT LIMIT</span></td>
+          <td>Three Creeks East TIS</td>
+        </tr>
+        <tr style="border-top: 3px solid var(--ink);">
+          <td colspan="5" style="font-weight: 700; color: var(--ink); font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; padding-top: 16px;">
+            Salmon Creek Area &mdash; Where Corridor Residents Shop, Get Medical Care &amp; Access Services
+          </td>
+        </tr>
+        <tr>
+          <td class="date-col">NE 10th Ave (149th&ndash;139th)</td>
+          <td>V/C 1.08</td>
+          <td>2028 Background</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Towhee Creek TIS</td>
+        </tr>
+        <tr>
+          <td class="date-col">NE 139th St (10th&ndash;20th Ave)</td>
+          <td>V/C 0.93</td>
+          <td>2028 Background</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Towhee Creek TIS</td>
+        </tr>
+        <tr>
+          <td class="date-col">NE 139th St (20th&ndash;23rd Ave)</td>
+          <td>V/C 0.92</td>
+          <td>2028 Background</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Towhee Creek TIS</td>
+        </tr>
+        <tr>
+          <td class="date-col">NE 139th St (20th Ave)</td>
+          <td>V/C 0.94</td>
+          <td>2028 Background</td>
+          <td><span class="fail-badge">FAIL</span></td>
+          <td>Three Creeks East TIS</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size: 14px; color: var(--muted); margin-top: 8px;">
+      V/C = volume-to-capacity ratio. The County&rsquo;s concurrency threshold is 0.90. Anything above 0.90 is failing.
+      LOS F = Level of Service F, the worst grade. Sources: eight developer-commissioned traffic impact studies 
+      (Three Creeks East, Four Creeks North, Kozy Manor Estates, NE 174th Street Subdivision, Towhee Creek, 
+      Ridgefield Middle School, Mt. Vista Logistics, Anderson Dental). Note: at roundabout intersections, overall LOS is a 
+      volume-weighted average&mdash;individual approaches can be at LOS F while the intersection reports LOS A.
+    </p>
+    <div class="callout blue" style="margin-top: 24px;">
+      <p>
+        <strong>The failures don&rsquo;t stay on 179th.</strong> The NE 134th&ndash;139th Street corridor 
+        between NE 10th and NE 29th Avenues is where corridor residents go for groceries, gas, 
+        pharmacies, medical appointments, dentists, and fast food. The roads and intersections serving 
+        this commercial district are already failing or at the threshold&mdash;and no traffic study for a 
+        179th corridor development is required to analyze or mitigate impacts to these daily destinations.
+      </p>
+    </div>
+    <div class="callout amber" style="margin-top: 24px;">
+      <p>
+        <strong>A note on jurisdiction:</strong> The segment of NE 179th Street from approximately 
+        NE Delfel Road to NE 15th Avenue&mdash;including the I-5 interchange&mdash;is state-owned 
+        (WSDOT). The County applies its own concurrency standards to this segment in traffic studies, 
+        but then disclaims the failing results as outside County jurisdiction. The County cannot have it 
+        both ways: either the interchange is within its concurrency system or it isn&rsquo;t.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INFRASTRUCTURE TIMELINE ─── -->
+<section style="border-top: 1px solid var(--rule);">
+  <div class="container-narrow">
+    <div class="section-label">Promises vs. Reality</div>
+    <h2>Where the infrastructure stands today</h2>
+    <p>
+      When urban holding was lifted in 2019, the County presented a project timeline of 2021&ndash;2027 
+      for major corridor improvements. The current reality:
+    </p>
+  </div>
+  <div class="container" style="margin-top: 24px;">
+    <table class="timeline-table">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Current Schedule</th>
+          <th>Budget</th>
+          <th>Years Past Deadline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="date-col">NE 179th at NE 29th Ave Roundabout</td>
+          <td>2025&ndash;2027</td>
+          <td>$27.6M</td>
+          <td><span class="late-badge">2 years</span></td>
+        </tr>
+        <tr>
+          <td class="date-col">NE 179th (NE 15th&ndash;NE 26th Ave)</td>
+          <td>2028&ndash;2030</td>
+          <td>$24.3M</td>
+          <td><span class="late-badge">3&ndash;5 years</span></td>
+        </tr>
+        <tr>
+          <td class="date-col">NE 15th Ave (179th&ndash;10th Ave)</td>
+          <td>2028&ndash;2030</td>
+          <td>$20M</td>
+          <td><span class="late-badge">3&ndash;5 years</span></td>
+        </tr>
+        <tr>
+          <td class="date-col">NE Delfel Rd (179th&ndash;184th)</td>
+          <td>2029&ndash;2031</td>
+          <td>$21.3M</td>
+          <td><span class="late-badge">4&ndash;6 years</span></td>
+        </tr>
+        <tr>
+          <td class="date-col">I-5/179th Interchange (WSDOT)</td>
+          <td>2029&ndash;2031</td>
+          <td>$86M</td>
+          <td><span class="late-badge">4&ndash;6 years</span></td>
+        </tr>
+        <tr>
+          <td class="date-col" style="font-weight: 700;">NE 179th (NE 29th&ndash;NE 50th Ave)</td>
+          <td style="font-weight: 600;">2031&ndash;2033</td>
+          <td>$23.9M</td>
+          <td><span class="fail-badge">6&ndash;8 years &middot; NOT FUNDED</span></td>
+        </tr>
+        <tr>
+          <td class="date-col" style="font-weight: 700;">NE 50th Ave Roundabout</td>
+          <td style="font-weight: 600;">2035+</td>
+          <td>~$24M (est.)</td>
+          <td><span class="fail-badge">10+ years &middot; NOT FUNDED</span></td>
+        </tr>
+        <tr style="background: var(--ink);">
+          <td class="date-col" style="color: white; font-weight: 700; border-bottom: none;">TOTAL</td>
+          <td style="color: white; font-weight: 700; border-bottom: none;"></td>
+          <td style="color: white; font-weight: 700; border-bottom: none;">~$227M+</td>
+          <td style="border-bottom: none;"><span class="fail-badge">2&ndash;10+ years late</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout amber" style="margin-top: 24px;">
+      <p>
+        The NE 179th (NE 29th&ndash;NE 50th Ave) segment is the improvement most frequently cited to 
+        justify development approvals at the corridor&rsquo;s eastern end. It is not on the County&rsquo;s 
+        own &ldquo;Reasonably Funded Project List.&rdquo;
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── YOUR EYES AREN'T DECEIVING YOU ─── -->
+<section style="border-top: 1px solid var(--rule);">
+  <div class="container-narrow">
+    <div class="section-label">Why It Doesn&rsquo;t Look That Bad Yet</div>
+    <h2>Your eyes aren&rsquo;t deceiving you</h2>
+    <p>
+      If you drive down 179th Street during the evening commute, you already know it&rsquo;s 
+      getting worse. But you might wonder: if the numbers are this bad, why isn&rsquo;t it 
+      <em>worse</em>? There&rsquo;s a reason&mdash;and it&rsquo;s actually the heart of the problem.
+    </p>
+    <p>
+      When the County approves a development, it <strong>reserves the trips</strong> that development 
+      will generate. Those trips are accounted for in the concurrency system as committed&mdash;but 
+      they&rsquo;re not on the road yet. The houses haven&rsquo;t been built. The families haven&rsquo;t 
+      moved in. The cars aren&rsquo;t making their evening commute home.
+    </p>
+    <p>
+      And it&rsquo;s not just homes. WSU Vancouver and commercial developments along the corridor 
+      have submitted plans and hold reserved trips too. All of these&mdash;residential, university, 
+      commercial&mdash;are committed capacity on roads that are already at or near their limits.
+    </p>
+    <p>
+      When those developments build out, the traffic will arrive on roads that still won&rsquo;t be 
+      finished. From the first development approvals in 2018 to when the NE 50th/179th roundabout 
+      is projected to be complete is <strong>nearly 20 years for 2.5 miles of road</strong>&mdash;and 
+      that doesn&rsquo;t even include the west side projects.
+    </p>
+    <p>
+      That&rsquo;s the whole reason concurrency exists&mdash;to make sure more development isn&rsquo;t 
+      approved than the roads can handle. The system is supposed to prevent the problem <em>before</em> 
+      it becomes visible, not after. By the time you can see the gridlock from your car window, 
+      it&rsquo;s too late. The approvals have been granted. The trips are committed. And the roads to 
+      serve them are still years away.
+    </p>
+  </div>
+</section>
+
+<!-- ─── COMP PLAN ─── -->
+<section id="compplan" class="comp-plan-section">
+  <div class="container-narrow">
+    <div class="section-label">April 27 Council Vote</div>
+    <h2>The Comprehensive Plan vote</h2>
+    <p>
+      On <strong>April 27, 2026</strong>, the Clark County Council will vote on a preferred alternative 
+      for the 2025 Comprehensive Plan update. This is the decision that sets density and infrastructure 
+      commitments for the next 20 years.
+    </p>
+    <p>
+      The 179th corridor is already failing under its current level of approved development&mdash;with 
+      infrastructure years behind schedule and key projects unfunded. The question before the Council is 
+      whether to increase density in this corridor before the promises made in 2019 have been kept.
+    </p>
+    <p>
+      Growth from Ridgefield and the broader region will add significant traffic to the I-5 corridor 
+      and create regional congestion that flows through the 179th interchange area. The Comprehensive 
+      Plan needs to account for this reality&mdash;not just local trips, but the regional traffic burden 
+      that this corridor will bear.
+    </p>
+  </div>
+</section>
+
+<!-- ─── WHAT WE'RE ASKING FOR ─── -->
+<section id="asks">
+  <div class="container-narrow">
+    <div class="section-label">What We Want</div>
+    <h2>This isn&rsquo;t anti-growth. It&rsquo;s&nbsp;pro-accountability.</h2>
+    <p>We&rsquo;re asking Clark County to do what it promised and what the law requires:</p>
+
+    <ol class="asks-list">
+      <li>
+        <div class="ask-content">
+          <h4>Build the roads first</h4>
+          <p>Infrastructure should be built before&mdash;or at least alongside&mdash;the houses. Not a decade later.</p>
+        </div>
+      </li>
+      <li>
+        <div class="ask-content">
+          <h4>Fix the concurrency system</h4>
+          <p>Measure real road capacity, not theoretical future capacity for roads that don&rsquo;t exist yet. 
+             Use the actual road cross-section, not the Arterial Atlas buildout designation.</p>
+        </div>
+      </li>
+      <li>
+        <div class="ask-content">
+          <h4>Pause approvals until promises are met</h4>
+          <p>No new development approvals in the corridor until the infrastructure commitments 
+             made in 2019 are substantially complete.</p>
+        </div>
+      </li>
+      <li>
+        <div class="ask-content">
+          <h4>Require corridor-wide traffic analysis</h4>
+          <p>Traffic studies should evaluate the whole corridor&mdash;not just the half-mile around 
+             each project. Cumulative impacts are the entire point of concurrency.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ─── TAKE ACTION ─── -->
+<section id="action" class="action-section">
+  <div class="container">
+    <div style="text-align: center; max-width: 640px; margin: 0 auto 16px;">
+      <div class="section-label">Take Action</div>
+      <h2>The April 27 vote is your moment</h2>
+      <p>
+        The County Council is voting on the preferred alternative for the Comprehensive Plan update. 
+        This is the decision that sets density and infrastructure commitments for the next 20 years. 
+        Your voice matters&mdash;here&rsquo;s how to use it.
+      </p>
+    </div>
+
+    <div class="action-grid">
+      <div class="action-card">
+        <div class="action-icon">&#9997;</div>
+        <h3>Submit Written Comment</h3>
+        <p>
+          Written comments go on the permanent record. Submit your comments through the County&rsquo;s 
+          official portal before April 27. Reference the DEIS findings and the 179th corridor 
+          concurrency failures.
+          <br><br>
+          <a href="https://www.clark.wa.gov/councilors/public-comment" target="_blank" 
+             style="color: var(--blue); font-weight: 600;">Submit Public Comment &rarr;</a>
+        </p>
+      </div>
+      <div class="action-card">
+        <div class="action-icon">&#127908;</div>
+        <h3>Testify in Person</h3>
+        <p>
+          Show up at the April 27 Council meeting and sign up to speak during public comment. 
+          You typically get 3 minutes. Focus on one or two specific points&mdash;the data is 
+          more powerful than general frustration.
+          <br><br>
+          <a href="https://clark.wa.gov/councilors/clark-county-council-meetings" target="_blank" 
+             style="color: var(--blue); font-weight: 600;">Council Meeting Info &amp; Agenda &rarr;</a>
+        </p>
+      </div>
+      <div class="action-card">
+        <div class="action-icon">&#128232;</div>
+        <h3>Contact Your Council Member</h3>
+        <p>
+          A direct email or phone call to your district&rsquo;s Council member carries weight, especially 
+          before a vote. Tell them you live in the corridor and you&rsquo;re watching this decision.
+          <br><br>
+          <a href="https://clark.wa.gov/councilors/write-councilor" target="_blank" 
+             style="color: var(--blue); font-weight: 600;">Write Your Councilor &rarr;</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="callout blue" style="max-width: 760px; margin: 48px auto 0;">
+      <p>
+        <strong>What to say:</strong> The County&rsquo;s own travel demand model shows the 179th corridor 
+        failing under both Comp Plan alternatives. Infrastructure promised in 2019 is years behind schedule. 
+        The concurrency system uses planned road capacity instead of actual capacity. 
+        Don&rsquo;t increase density until the roads catch up.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about" style="border-top: 1px solid var(--rule);">
+  <div class="container-narrow">
+    <div class="section-label">About This Site</div>
+    <h2>Who we are</h2>
+    <p>
+      179Gridlock.com is maintained by residents of the NE 179th Street corridor in unincorporated 
+      Clark County, Washington. We live here. We drive these roads every day. And we&rsquo;ve spent 
+      the last several years reading the traffic studies, attending the hearings, and analyzing 
+      the County&rsquo;s concurrency system.
+    </p>
+    <p>
+      This site exists because the public record tells a story that isn&rsquo;t being told 
+      anywhere else: Clark County&rsquo;s system for ensuring roads keep pace with development 
+      is structurally designed to approve every application, regardless of actual road conditions.
+    </p>
+
+    <h3>Our standards</h3>
+    <p>
+      Every claim on this site is sourced to a specific document, traffic study, County code section, 
+      or public meeting record. We distinguish between what the data shows and what we believe it means. 
+      We correct errors when we find them. If you believe something here is inaccurate, 
+      <a href="mailto:info@179gridlock.com">let us know</a>.
+    </p>
+    <p>
+      <strong>We are not anti-development. We are pro-infrastructure.</strong> Build the roads, then 
+      build the houses.
+    </p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p><strong>179Gridlock.com</strong></p>
+  <p>
+    A public information resource about transportation concurrency in the NE 179th Street corridor, 
+    Clark County, Washington. All analysis is based on publicly available documents.
+  </p>
+  <p style="margin-top: 16px; font-size: 13px;">
+    &copy; 2026 &middot; <a href="mailto:info@179gridlock.com">Contact</a>
+  </p>
+</footer>
+
+</body>
+</html>
