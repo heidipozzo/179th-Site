@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timeline — 179 Gridlock</title>
+<meta name="description" content="From promises to reality: a chronology of the 179th Street corridor from 2004 to today.">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N2B95D64NG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-N2B95D64NG');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf8;
+    --slate: #4a4a5a;
+    --muted: #7a7a8a;
+    --rule: #d4d4d8;
+    --red: #b91c1c;
+    --red-light: #fef2f2;
+    --red-dark: #991b1b;
+    --blue: #1e3a5f;
+    --blue-light: #eff6ff;
+    --amber: #92400e;
+    --amber-bg: #fffbeb;
+    --green: #166534;
+    --green-bg: #f0fdf4;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--paper); line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased; }
+
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-bottom: 1px solid var(--rule); background: var(--paper); position: sticky; top: 0; z-index: 100; }
+  .nav-brand { font-family: var(--sans); font-weight: 700; font-size: 22px; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
+  .nav-brand span { color: var(--red); }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { color: var(--slate); text-decoration: none; font-size: 15px; font-weight: 500; }
+  .nav-links a:hover { color: var(--ink); }
+  .back-link { display: inline-block; font-size: 14px; font-weight: 600; color: var(--blue); text-decoration: none; margin-bottom: 24px; }
+  .back-link:hover { text-decoration: underline; }
+
+  .page-hero { padding: 80px 40px 40px; max-width: 760px; margin: 0 auto; }
+  h1 { font-family: var(--serif); font-size: clamp(32px, 4.5vw, 48px); line-height: 1.15; color: var(--ink); margin-bottom: 20px; letter-spacing: -0.02em; }
+  p { margin-bottom: 18px; color: var(--slate); }
+
+  /* ─── TIMELINE ─── */
+  .timeline-container { max-width: 820px; margin: 0 auto; padding: 0 40px 80px; position: relative; }
+  .timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 59px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--rule);
+  }
+
+  .tl-era {
+    position: relative;
+    margin-top: 48px;
+    margin-bottom: 24px;
+    padding-left: 88px;
+  }
+  .tl-era-label {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .tl-era::before {
+    content: '';
+    position: absolute;
+    left: 51px;
+    top: 8px;
+    width: 19px;
+    height: 19px;
+    background: var(--ink);
+    border-radius: 50%;
+    border: 3px solid var(--paper);
+    z-index: 2;
+  }
+
+  .tl-item {
+    position: relative;
+    padding: 16px 0 16px 88px;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: 54px;
+    top: 24px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    border: 3px solid var(--rule);
+    background: var(--paper);
+    z-index: 2;
+  }
+  .tl-item.promise::before { border-color: var(--blue); background: var(--blue-light); }
+  .tl-item.warning::before { border-color: #d97706; background: var(--amber-bg); }
+  .tl-item.approval::before { border-color: var(--green); background: var(--green-bg); }
+  .tl-item.failure::before { border-color: var(--red); background: var(--red-light); }
+  .tl-item.neutral::before { border-color: var(--muted); background: #f3f4f6; }
+
+  .tl-date {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .tl-item.promise .tl-date { color: var(--blue); }
+  .tl-item.warning .tl-date { color: #d97706; }
+  .tl-item.approval .tl-date { color: var(--green); }
+  .tl-item.failure .tl-date { color: var(--red); }
+  .tl-item.neutral .tl-date { color: var(--muted); }
+
+  .tl-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .tl-desc {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.55;
+    margin-bottom: 0;
+  }
+  .tl-quote {
+    margin-top: 10px;
+    padding: 12px 16px;
+    border-left: 3px solid var(--rule);
+    background: white;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+    color: var(--slate);
+    font-style: italic;
+  }
+  .tl-quote .tl-attribution {
+    display: block;
+    font-style: normal;
+    font-weight: 600;
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .tl-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-top: 8px;
+  }
+  .tl-badge.red { background: var(--red); color: white; }
+  .tl-badge.amber { background: #d97706; color: white; }
+  .tl-badge.blue { background: var(--blue); color: white; }
+
+  /* ─── LEGEND ─── */
+  .legend {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin: 24px 0 8px 88px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid;
+  }
+  .legend-dot.promise { border-color: var(--blue); background: var(--blue-light); }
+  .legend-dot.warning { border-color: #d97706; background: var(--amber-bg); }
+  .legend-dot.approval { border-color: var(--green); background: var(--green-bg); }
+  .legend-dot.failure { border-color: var(--red); background: var(--red-light); }
+
+  footer { border-top: 1px solid var(--rule); padding: 48px 40px; text-align: center; }
+  footer p { font-size: 14px; color: var(--muted); max-width: 640px; margin: 0 auto 8px; }
+  footer a { color: var(--slate); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    .page-hero { padding: 50px 20px 30px; }
+    .timeline-container { padding: 0 20px 60px; }
+    .timeline-container::before { left: 19px; }
+    .tl-era { padding-left: 48px; }
+    .tl-era::before { left: 11px; }
+    .tl-item { padding-left: 48px; }
+    .tl-item::before { left: 14px; }
+    .legend { margin-left: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">179<span>Gridlock</span></a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="evidence.html">Understanding the Numbers</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <a href="/" class="back-link">&larr; Back to 179Gridlock.com</a>
+  <h1>Promises vs. Reality</h1>
+  <p>
+    A chronology of the 179th Street corridor &mdash; from the first infrastructure promises 
+    through today. Every entry is sourced from public meeting minutes, County documents, 
+    or official records.
+  </p>
+</div>
+
+<div class="timeline-container">
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot promise"></div> Promise / commitment</div>
+    <div class="legend-item"><div class="legend-dot warning"></div> Warning / concern raised</div>
+    <div class="legend-item"><div class="legend-dot approval"></div> Development approved</div>
+    <div class="legend-item"><div class="legend-dot failure"></div> Deadline missed / failure documented</div>
+  </div>
+
+  <!-- ═══ 2004–2007 ═══ -->
+  <div class="tl-era"><div class="tl-era-label">2004&ndash;2007: The Setup</div></div>
+
+  <div class="tl-item neutral">
+    <div class="tl-date">2004 &amp; 2007</div>
+    <div class="tl-title">Area brought into Vancouver&rsquo;s Urban Growth Area</div>
+    <div class="tl-desc">Approximately 2,200 acres surrounding the 179th Street corridor are added to the UGA. Urban holding overlay applied immediately because transportation infrastructure lacks adequate capacity for urban development.</div>
+  </div>
+
+  <!-- ═══ 2014 ═══ -->
+  <div class="tl-era"><div class="tl-era-label">2014: The Rules Change</div></div>
+
+  <div class="tl-item warning">
+    <div class="tl-date">August 2014</div>
+    <div class="tl-title">County changes how concurrency is measured</div>
+    <div class="tl-desc">Ordinance 2014-08-09 shifts LOS methodology from travel speed standards to volume-to-capacity ratios. The entire travel speed table (38 corridor segments) is deleted.</div>
+    <div class="tl-quote">&ldquo;When we made this change, it dramatically lowered our needed projects and subsequently lowered our TIF rates as a result.&rdquo;
+      <span class="tl-attribution">&mdash; Matt Herman, Public Works, March 2019 Council Work Session</span>
+    </div>
+  </div>
+
+  <!-- ═══ 2015–2016 ═══ -->
+  <div class="tl-era"><div class="tl-era-label">2015&ndash;2016: State Funding</div></div>
+
+  <div class="tl-item promise">
+    <div class="tl-date">2015&ndash;2016</div>
+    <div class="tl-title">Connecting Washington package funds I-5/179th interchange</div>
+    <div class="tl-desc">The state legislature allocates $50 million for the I-5/179th interchange replacement, with funds scheduled for the 2023&ndash;2025 biennium. This becomes the centerpiece of the corridor improvement plan.</div>
+  </div>
+
+  <!-- ═══ 2018 ═══ -->
+  <div class="tl-era"><div class="tl-era-label">2018: Warnings Ignored</div></div>
+
+  <div class="tl-item warning">
+    <div class="tl-date">November 7, 2018</div>
+    <div class="tl-title">WSDOT recommends denial of urban holding lift</div>
+    <div class="tl-desc">In a letter to Community Planning Director Oliver Orjiako, WSDOT states the existing interchange lacks capacity for additional development and won&rsquo;t be operationally functional until 2028. WSDOT supports the staff recommendation of denial.</div>
+    <div class="tl-quote">&ldquo;WSDOT supports the staff report recommendation of denial for this proposal.&rdquo;
+      <span class="tl-attribution">&mdash; WSDOT letter to Oliver Orjiako, November 7, 2018</span>
+    </div>
+    <span class="tl-badge red">Never disclosed at any subsequent hearing</span>
+  </div>
+
+  <div class="tl-item approval">
+    <div class="tl-date">December 18, 2018</div>
+    <div class="tl-title">Phase 1: Urban holding lifted &mdash; Killian Pacific</div>
+    <div class="tl-desc">40 acres approved for 200 single-family homes and a 326-unit apartment complex. Council approves without knowledge of the WSDOT denial recommendation issued 41 days earlier.</div>
+  </div>
+
+  <!-- ═══ 2019 ═══ -->
+  <div class="tl-era"><div class="tl-era-label">2019: The Floodgates Open</div></div>
+
+  <div class="tl-item approval">
+    <div class="tl-date">February 21, 2019</div>
+    <div class="tl-title">Phase 2: Planning Commission approves Holt Homes lift</div>
+    <div class="tl-desc">143 acres approved for 606 single-family homes and 99 townhomes. Commissioner Bender asks if there&rsquo;s a construction plan. Public Works describes a &ldquo;goal&rdquo; &mdash; no actual plan exists.</div>
+    <div class="tl-quote">&ldquo;I just wanted to make sure that we weren&rsquo;t misleading you, that there isn&rsquo;t a true construction management plan sitting there.&rdquo;
+      <span class="tl-attribution">&mdash; Randy Printz, developers&rsquo; representative, Feb 21, 2019</span>
+    </div>
+    <span class="tl-badge amber">No construction plan. Approved 4-0.</span>
+  </div>
+
+  <div class="tl-item promise">
+    <div class="tl-date">February&ndash;March 2019</div>
+    <div class="tl-title">179th Street Council Subcommittee meets</div>
+    <div class="tl-desc">Goal: bring corridor into concurrency compliance. Reasonably fund projects in the six-year TIP. Funding options debated; bonding discussed then punted to the working group and Council.</div>
+  </div>
+
+  <div class="tl-item approval">
+    <div class="tl-date">July 16, 2019</div>
+    <div class="tl-title">Council approves Phase 2 urban holding lift</div>
+    <div class="tl-desc">WSDOT mentioned only in passing. Ahmad Qayoumi notes the interchange is &ldquo;funded through state&rdquo; and they&rsquo;re meeting monthly. No mention of WSDOT&rsquo;s denial recommendation or capacity concerns.</div>
+  </div>
+
+  <div class="tl-item promise">
+    <div class="tl-date">August 20, 2019</div>
+    <div class="tl-title">Council adopts $66.5 million funding plan</div>
+    <div class="tl-desc">Resolution 2019-08-05 selects financing plan for Step 1 corridor projects. Funding sources include road funds, REET, grants, developer TIF payments, and surcharges. Step 2 projects (NE 15th&ndash;26th and NE 29th&ndash;50th widening) are not funded.</div>
+  </div>
+
+  <div class="tl-item promise">
+    <div class="tl-date">September 10, 2019</div>
+    <div class="tl-title">Open House at Alki Middle School</div>
+    <div class="tl-desc">County presents project timeline showing major corridor improvements completing between 2021 and 2027.</div>
+    <span class="tl-badge blue">Original timeline: 2021&ndash;2027</span>
+  </div>
+
+  <div class="tl-item approval">
+    <div class="tl-date">October 1, 2019</div>
+    <div class="tl-title">Phase 3: Hinton Development &mdash; 32 acres, 129 homes</div>
+    <div class="tl-desc">Planning Commission approves 4-1. Commissioner Barca casts the sole dissenting vote, warning the County is &ldquo;running out of capacity long before we will have done the build-out for this area.&rdquo;</div>
+    <div class="tl-quote">&ldquo;So the developments may be finished before the things are in place?&rdquo; &ldquo;Correct.&rdquo;
+      <span class="tl-attribution">&mdash; Public testimony question and Matt Hermen&rsquo;s response, October 8, 2019</span>
+    </div>
+  </div>
+
+  <div class="tl-item approval">
+    <div class="tl-date">November 12, 2019</div>
+    <div class="tl-title">Full urban holding removal: all 2,200 acres</div>
+    <div class="tl-desc">County Council lifts urban holding on the remaining acreage. The six-year GMA clock starts. All corridor improvements must be in place or financially committed by November 2025.</div>
+    <span class="tl-badge blue">Six-year deadline: November 2025</span>
+  </div>
+
+  <!-- ═══ 2020–2022 ═══ -->
+  <div class="tl-era"><div class="tl-era-label">2020&ndash;2022: Development Proceeds</div></div>
+
+  <div class="tl-item neutral">
+    <div class="tl-date">2020</div>
+    <div class="tl-title">WSU Vancouver master plan updated</div>
+    <div class="tl-desc">Approximately 1,300 trips reserved under a concurrency agreement for future campus expansion.</div>
+  </div>
+
+  <div class="tl-item neutral">
+    <div class="tl-date">2021</div>
+    <div class="tl-title">179th Street Access Management &amp; Circulation Plan initiated</div>
+    <div class="tl-desc">Planning process begins for managing access and circulation along the corridor as development accelerates.</div>
+  </div>
+
+  <!-- ═══ 2023 ═══ -->
+  <div class="tl-era"><div class="tl-era-label">2023: The Admission</div></div>
+
+  <div class="tl-item failure">
+    <div class="tl-date">July 12, 2023</div>
+    <div class="tl-title">Public Works Director admits the timeline was never feasible</div>
+    <div class="tl-desc">Ken Lader tells the County Council that no one with experience believed the six-year timeline was possible when it was first proposed.</div>
+    <div class="tl-quote">&ldquo;When I first saw these corridor projects back when it was talked about as a package and my predecessors were discussing completing these in six years, I don&rsquo;t know of anyone who had done projects like these that thought that was possible.&rdquo;
+      <span class="tl-attribution">&mdash; Ken Lader, Public Works Director, July 12, 2023</span>
+    </div>
+  </div>
+
+  <div class="tl-item neutral">
+    <div class="tl-date">July 18, 2023</div>
+    <div class="tl-title">Arterial Atlas amendments adopted</div>
+    <div class="tl-desc">County Council adopts Planning Commission recommendation (6-0) to implement the 179th Street Access Management and Circulation Plan through Arterial Atlas amendments.</div>
+  </div>
+
+  <!-- ═══ 2025 ═══ -->
+  <div class="tl-era"><div class="tl-era-label">2025: The Deadline Passes</div></div>
+
+  <div class="tl-item failure">
+    <div class="tl-date">February&ndash;June 2025</div>
+    <div class="tl-title">Five development applications filed with traffic studies</div>
+    <div class="tl-desc">Kozy Manor Estates (14 lots), Four Creeks North (39 lots), Three Creeks East (200 lots), Towhee Creek PUD (96 lots), and Anderson Dental all file traffic impact studies. Five of these studies are prepared during the same period and none count traffic from the other four.</div>
+  </div>
+
+  <div class="tl-item failure">
+    <div class="tl-date">November 2025</div>
+    <div class="tl-title">Six-year deadline passes</div>
+    <div class="tl-desc">Not a single major corridor project is complete. The deadline established when urban holding was lifted in November 2019 has expired. Infrastructure completion dates now extend to 2035 and beyond.</div>
+    <span class="tl-badge red">DEADLINE MISSED &mdash; No major projects complete</span>
+  </div>
+
+  <div class="tl-item neutral">
+    <div class="tl-date">October 2025</div>
+    <div class="tl-title">Draft Environmental Impact Statement published</div>
+    <div class="tl-desc">The DEIS for the 2025 Comprehensive Plan update is released. The County&rsquo;s own travel demand model shows corridor failures, but the DEIS does not identify them as concurrency deficiencies.</div>
+  </div>
+
+  <div class="tl-item approval">
+    <div class="tl-date">December 2025</div>
+    <div class="tl-title">NE 174th Street Subdivision files traffic study</div>
+    <div class="tl-desc">101-lot subdivision. The traffic study shows the corridor failing by 2028 under background conditions &mdash; even assuming planned improvements are built. Prepared by the same engineer as four other corridor studies.</div>
+  </div>
+
+  <!-- ═══ 2026 ═══ -->
+  <div class="tl-era"><div class="tl-era-label">2026: Approvals Continue</div></div>
+
+  <div class="tl-item approval">
+    <div class="tl-date">January&ndash;March 2026</div>
+    <div class="tl-title">Three corridor projects approved by Hearing Examiner</div>
+    <div class="tl-desc">Four Creeks North (January 21), Kozy Manor Estates (February 27), and Three Creeks East (March 6) are all approved. Combined: 253 lots added to the corridor. All rely on the same unbuilt TIP projects.</div>
+  </div>
+
+  <div class="tl-item failure">
+    <div class="tl-date">March 10, 2026</div>
+    <div class="tl-title">Hergesheimer v. Clark County decided</div>
+    <div class="tl-desc">Superior Court affirms Hearing Examiner approval of Mill Creek Meadows (40-lot subdivision), applying substantial evidence deference to staff&rsquo;s interpretation of capacity standards.</div>
+  </div>
+
+  <div class="tl-item warning">
+    <div class="tl-date">March 26, 2026</div>
+    <div class="tl-title">Meeting with Public Works staff</div>
+    <div class="tl-desc">Corridor residents meet with Jeremy Provenzano (County Engineer), Steve Gallup, David Jardin, and Jose Alvarez. David Jardin confirms the intersection override practice on the record. Jeremy Provenzano characterizes County projects as &ldquo;mostly independent&rdquo; of the WSDOT interchange &mdash; contradicting prior public statements by Ken Lader and other staff.</div>
+  </div>
+
+  <!-- ═══ FUTURE ═══ -->
+  <div class="tl-era"><div class="tl-era-label">What&rsquo;s Ahead</div></div>
+
+  <div class="tl-item promise">
+    <div class="tl-date">April 27, 2026</div>
+    <div class="tl-title">County Council votes on Comprehensive Plan preferred alternative</div>
+    <div class="tl-desc">The decision that sets density and infrastructure commitments for the next 20 years. The corridor is already failing under current approved development.</div>
+    <span class="tl-badge red">YOUR VOICE MATTERS</span>
+  </div>
+
+  <div class="tl-item promise">
+    <div class="tl-date">2025&ndash;2027 (projected)</div>
+    <div class="tl-title">NE 179th at NE 29th Ave Roundabout</div>
+    <div class="tl-desc">$27.6 million. The first major corridor project. 2 years past the original deadline.</div>
+  </div>
+
+  <div class="tl-item promise">
+    <div class="tl-date">2028&ndash;2030 (projected)</div>
+    <div class="tl-title">NE 179th (15th&ndash;26th Ave) and NE 15th Ave widening</div>
+    <div class="tl-desc">$44.3 million combined. 3&ndash;5 years past deadline.</div>
+  </div>
+
+  <div class="tl-item promise">
+    <div class="tl-date">2029&ndash;2031 (projected)</div>
+    <div class="tl-title">I-5/179th Interchange reconstruction (WSDOT)</div>
+    <div class="tl-desc">$86 million. A state project the County cannot build or guarantee. Has slipped repeatedly from its original schedule. 4&ndash;6 years past deadline.</div>
+  </div>
+
+  <div class="tl-item failure">
+    <div class="tl-date">2031&ndash;2033 (projected)</div>
+    <div class="tl-title">NE 179th (NE 29th&ndash;NE 50th Ave)</div>
+    <div class="tl-desc">$23.9 million. Not on the County&rsquo;s &ldquo;Reasonably Funded Project List.&rdquo; The segment most frequently cited to justify development approvals at the corridor&rsquo;s eastern end. 6&ndash;8 years past deadline.</div>
+    <span class="tl-badge red">NOT FUNDED</span>
+  </div>
+
+  <div class="tl-item failure">
+    <div class="tl-date">2035+ (projected)</div>
+    <div class="tl-title">NE 50th Ave Roundabout</div>
+    <div class="tl-desc">~$24 million estimated. Not funded. Not scheduled. The intersection already shows LOS F in traffic studies. 10+ years past deadline.</div>
+    <span class="tl-badge red">NOT FUNDED &middot; NOT SCHEDULED</span>
+  </div>
+
+  <div class="tl-item failure">
+    <div class="tl-date">Unknown</div>
+    <div class="tl-title">NW 11th/179th Roundabout and Delfel&ndash;NW 11th widening</div>
+    <div class="tl-desc">Not in the County&rsquo;s plans. No timeline. No budget. No funding source identified.</div>
+    <span class="tl-badge red">NOT IN ANY PLAN</span>
+  </div>
+
+</div>
+
+<!-- ─── BACK TO HOME ─── -->
+<section style="border-top: 1px solid var(--rule); padding: 48px 0; text-align: center;">
+  <p style="max-width: 600px; margin: 0 auto 24px; font-size: 15px; color: var(--slate);">
+    From the first approvals in 2018 to when the last funded project finishes is nearly 
+    <strong>20 years for 2.5 miles of road</strong> &mdash; and that doesn&rsquo;t include the west side projects.
+  </p>
+  <a href="/" style="display: inline-block; padding: 14px 28px; font-size: 15px; font-weight: 600; font-family: var(--sans); text-decoration: none; border-radius: 6px; background: var(--ink); color: white;">
+    &larr; Back to 179Gridlock.com
+  </a>
+</section>
+
+<footer>
+  <p><strong>179Gridlock.com</strong></p>
+  <p>A public information resource about transportation concurrency in the NE 179th Street corridor, Clark County, Washington.</p>
+  <p style="margin-top: 16px; font-size: 13px;">&copy; 2026 &middot; <a href="mailto:info@179gridlock.com">Contact</a></p>
+</footer>
+
+</body>
+</html>
