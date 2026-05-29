@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Land Use Hearings — 179 Gridlock</title>
+  <meta name="description" content="Active land use hearings in the NE 179th Street corridor — where the concurrency code meets real development applications.">
+  <meta property="og:title" content="Land Use Hearings — 179 Gridlock">
+  <meta property="og:description" content="Active land use hearings in the NE 179th Street corridor reveal a concurrency system that isn't being applied as written.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://179gridlock.com/hearings.html">
+  <style>
+    /* ─── BASE ─── */
+    :root {
+      --navy: #1a2744;
+      --navy-light: #243352;
+      --red: #c0392b;
+      --red-dark: #a93226;
+      --warm-bg: #faf6f0;
+      --warm-bg-alt: #f3ede4;
+      --text: #2c2c2c;
+      --text-light: #5a5a5a;
+      --line: #d4cdc0;
+      --amber: #f39c12;
+      --amber-bg: #fef9e7;
+      --green: #27ae60;
+      --green-bg: #eafaf1;
+      --fail-red: #e74c3c;
+      --fail-bg: #fdedec;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background: var(--warm-bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 17px;
+    }
+    a { color: var(--red); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ─── NAV ─── */
+    .nav {
+      background: var(--navy);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .nav-brand {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: white;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-brand:hover { text-decoration: none; opacity: 0.9; }
+    .nav a:not(.nav-brand) {
+      color: rgba(255,255,255,0.7);
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .nav a:not(.nav-brand):hover { color: white; text-decoration: none; }
+
+    /* ─── LAYOUT ─── */
+    .container { max-width: 960px; margin: 0 auto; padding: 0 32px; }
+    .container-narrow { max-width: 720px; margin: 0 auto; padding: 0 32px; }
+
+    /* ─── BACK LINK ─── */
+    .back-link {
+      display: inline-block;
+      margin: 24px 0 0;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: var(--red);
+    }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      padding: 64px 0 48px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 48px;
+    }
+    .page-header h1 {
+      font-size: 36px;
+      line-height: 1.2;
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .page-header .subtitle {
+      font-size: 18px;
+      color: var(--text-light);
+      max-width: 640px;
+    }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 48px 0; }
+    section + section { border-top: 1px solid var(--line); }
+    h2 {
+      font-size: 26px;
+      color: var(--navy);
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+    h3 {
+      font-size: 20px;
+      color: var(--navy);
+      margin: 32px 0 12px;
+    }
+    p { margin-bottom: 16px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ─── CALLOUT BOXES ─── */
+    .callout {
+      border-left: 4px solid var(--line);
+      padding: 20px 24px;
+      margin: 24px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .callout.red {
+      border-left-color: var(--fail-red);
+      background: var(--fail-bg);
+    }
+    .callout.amber {
+      border-left-color: var(--amber);
+      background: var(--amber-bg);
+    }
+    .callout.green {
+      border-left-color: var(--green);
+      background: var(--green-bg);
+    }
+    .callout p { font-size: 15px; }
+    .callout p:last-child { margin-bottom: 0; }
+
+    /* ─── CASE CARD ─── */
+    .case-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 32px;
+      margin: 32px 0;
+    }
+    .case-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .case-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .case-number {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      color: var(--text-light);
+      background: var(--warm-bg-alt);
+      padding: 4px 12px;
+      border-radius: 4px;
+    }
+    .case-meta {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+    .case-meta span { display: inline-block; margin-right: 20px; }
+
+    /* ─── TIMELINE MINI ─── */
+    .timeline-mini {
+      list-style: none;
+      margin: 24px 0;
+      padding-left: 20px;
+      border-left: 2px solid var(--line);
+    }
+    .timeline-mini li {
+      position: relative;
+      padding: 8px 0 8px 20px;
+      font-size: 15px;
+    }
+    .timeline-mini li::before {
+      content: '';
+      position: absolute;
+      left: -27px;
+      top: 14px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--line);
+      border: 2px solid var(--warm-bg);
+    }
+    .timeline-mini li.highlight::before {
+      background: var(--red);
+    }
+    .timeline-mini .date {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--navy);
+      display: block;
+    }
+
+    /* ─── QUOTE ─── */
+    blockquote {
+      border-left: 3px solid var(--navy);
+      padding: 16px 24px;
+      margin: 24px 0;
+      background: rgba(26,39,68,0.03);
+      font-style: italic;
+    }
+    blockquote cite {
+      display: block;
+      font-style: normal;
+      font-size: 14px;
+      color: var(--text-light);
+      margin-top: 8px;
+    }
+
+    /* ─── SIGNUP BANNER ─── */
+    .signup-banner {
+      background: var(--navy);
+      padding: 48px 40px;
+      text-align: center;
+      margin-top: 48px;
+    }
+    .signup-banner h2 { color: white; margin-bottom: 12px; }
+    .signup-banner p {
+      color: rgba(255,255,255,0.75);
+      max-width: 520px;
+      margin: 0 auto 24px;
+      font-size: 16px;
+    }
+    .btn-signup {
+      display: inline-block;
+      padding: 14px 36px;
+      background: var(--red);
+      color: white;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-signup:hover { background: var(--red-dark); text-decoration: none; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.5);
+      padding: 32px;
+      text-align: center;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+    }
+    footer a { color: rgba(255,255,255,0.7); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .page-header h1 { font-size: 28px; }
+      .case-card { padding: 24px 20px; }
+      .container, .container-narrow { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="https://179gridlock.com/" class="nav-brand">179Gridlock</a>
+  <a href="https://179gridlock.com/">Home</a>
+  <a href="https://179gridlock.com/evidence.html">Understanding the Numbers</a>
+  <a href="https://179gridlock.com/timeline.html">Timeline</a>
+  <a href="https://179gridlock.com/hearings.html">Land Use Hearings</a>
+</nav>
+
+<div class="container-narrow">
+  <a href="https://179gridlock.com/" class="back-link">&larr; Back to 179Gridlock.com</a>
+
+  <div class="page-header">
+    <h1>Land Use Hearings</h1>
+    <p class="subtitle">Where the concurrency code meets real development applications&mdash;and where 
+      the gap between what the code requires and what the County is doing becomes visible.</p>
+  </div>
+</div>
+
+<!-- ─── WHY THIS MATTERS ─── -->
+<section>
+  <div class="container-narrow">
+    <h2>Why hearings matter</h2>
+    <p>
+      Clark County&rsquo;s concurrency code&mdash;CCC 40.350.020&mdash;requires that roads have adequate 
+      capacity before development is approved. When a corridor&rsquo;s volume-to-capacity (V/C) ratio 
+      exceeds 0.90, the code says development should not proceed until the condition is improved 
+      or mitigated. That&rsquo;s the standard the County adopted. It&rsquo;s in the code.
+    </p>
+    <p>
+      In practice, the County has not been applying the code as written. Instead, staff have been 
+      dismissing corridor V/C failures when the intersections at either end of the failing segment 
+      show acceptable levels of service&mdash;a practice that has no basis in the code text.
+    </p>
+    <p>
+      This gap between code and practice has been invisible for years because it happens inside 
+      technical staff reports that few people read. The hearings below are where that gap became 
+      part of the public record.
+    </p>
+
+    <div class="callout amber">
+      <p>
+        <strong>Broad agreement that the code means what it says.</strong> The developer&rsquo;s own 
+        attorney conceded at the April 23 hearing that the intersection override practice is not 
+        in the code. The Hearing Examiner independently identified the same problem. And in a 
+        separate proceeding, the developer&rsquo;s own traffic engineer submitted a memorandum 
+        identifying <strong>22 corridors countywide</strong> that exceed the V/C 0.90 standard&mdash;
+        all but one concentrated in just two high-growth areas&mdash;confirming 
+        that the plain reading of the code reveals a systemic problem, not an isolated one.
+      </p>
+      <p style="margin-top: 12px;">
+        There is no serious dispute about what the code says. The question is whether the County 
+        will follow it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── 174TH STREET ─── -->
+<section>
+  <div class="container-narrow">
+    <h2>Active Proceedings</h2>
+
+    <div class="case-card">
+      <div class="case-header">
+        <div class="case-name">174th Street Subdivision</div>
+        <div class="case-number">PLD-2026-00002</div>
+      </div>
+      <div class="case-meta">
+        <span><strong>Applicant:</strong> Silver Buckle Homes / TimberCrest Homes</span>
+        <span><strong>Units:</strong> 100 lots</span>
+        <span><strong>Location:</strong> 17101 NE 40th Avenue</span>
+      </div>
+
+      <p>
+        A 100-lot residential subdivision at the eastern end of the 179th corridor. The 
+        applicant&rsquo;s own developer-commissioned traffic study found multiple corridor segments 
+        exceeding the V/C 0.90 standard&mdash;including NE 179th Street, NE 10th Avenue, NE 15th 
+        Avenue, and NE 50th Avenue&mdash;under 2028 background conditions, before the project&rsquo;s 
+        traffic is even added.
+      </p>
+
+      <h3>What happened</h3>
+      <p>
+        On April 8, 2026, County staff recommended <strong>denial</strong> of this subdivision 
+        because concurrency standards had not been met. This was the first time staff had 
+        recommended denial of a corridor development on concurrency grounds.
+      </p>
+      <p>
+        At the April 23 hearing before the Hearing Examiner, the concurrency question became 
+        the central issue. The County&rsquo;s concurrency engineer was unable to identify a code 
+        basis for the practice of dismissing corridor V/C failures based on intersection 
+        performance. The developer&rsquo;s attorney conceded the practice is not literally in the 
+        code, but argued it represents a long-standing interpretation. The Hearing Examiner 
+        stated that the code &ldquo;doesn&rsquo;t say anything about level of service&rdquo; at bounding 
+        intersections and that if the parties believe the code needs changing, that&rsquo;s a matter 
+        for the Planning Commission and Board of Commissioners.
+      </p>
+
+      <div class="callout red">
+        <p>
+          <strong>The County&rsquo;s response:</strong> Rather than apply the code as written or 
+          deny the application, staff indicated they would reverse their recommendation from 
+          denial to approval based on a volunteer mitigation letter from the developer. That 
+          letter proposes improvements at one intersection&mdash;but does not address the corridor 
+          V/C failures the Hearing Examiner identified. The reversal would re-apply the same 
+          practice the Hearing Examiner questioned.
+        </p>
+      </div>
+
+      <h3>The 22-corridor finding</h3>
+      <p>
+        On May 11, 2026, the developer&rsquo;s traffic engineer submitted a memorandum into the 
+        record identifying 22 corridor segments countywide that exceed the V/C 0.90 standard. 
+        All but one are concentrated in just two areas: Salmon Creek/Fairgrounds and 
+        SR-503/Brush Prairie&mdash;both high-growth corridors where development has outpaced 
+        infrastructure investment. The memorandum argued that enforcing the code as written 
+        would affect development across the county. But what it actually demonstrates is that 
+        the concurrency system is catching exactly the problem it was designed to catch: 
+        growth areas where the County has approved development without building adequate 
+        infrastructure.
+      </p>
+      <p>
+        The concurrency code exists for this reason. When roads are failing, the appropriate 
+        response is to invest in infrastructure or limit development until capacity exists&mdash;not 
+        to argue that the standard identifying the failure should be abandoned.
+      </p>
+
+      <h3>Proceeding timeline</h3>
+      <ul class="timeline-mini">
+        <li>
+          <span class="date">April 8, 2026</span>
+          Staff recommends denial&mdash;first concurrency-based denial in the corridor
+        </li>
+        <li class="highlight">
+          <span class="date">April 23, 2026</span>
+          Hearing before Examiner Joe Turner&mdash;concurrency engineer unable to cite code 
+          basis for override practice; developer&rsquo;s attorney concedes practice not in code; 
+          record held open
+        </li>
+        <li>
+          <span class="date">May 11, 2026</span>
+          Developer&rsquo;s engineer submits memo identifying 22 failing corridors countywide
+        </li>
+        <li>
+          <span class="date">May 21, 2026</span>
+          Open record closed for new testimony
+        </li>
+        <li>
+          <span class="date">June 4, 2026</span>
+          Response deadline
+        </li>
+        <li>
+          <span class="date">June 19, 2026</span>
+          Decision expected
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── THE PATTERN ─── -->
+<section>
+  <div class="container-narrow">
+    <h2>The pattern</h2>
+    <p>
+      The 174th Street Subdivision is not an isolated case. It is the most visible example of a 
+      pattern that has played out across more than two dozen development applications in this 
+      corridor since 2018:
+    </p>
+    <p>
+      Developer-commissioned traffic studies document corridor segments exceeding V/C 0.90. 
+      Staff dismiss the failures using a practice&mdash;the intersection LOS override&mdash;that has 
+      no basis in the adopted code. Development is approved. Roads remain unbuilt. And the 
+      corridor gets worse.
+    </p>
+    <p>
+      What makes the 174th Street proceeding different is that the practice was finally examined 
+      on the record. The concurrency engineer could not defend it. The developer&rsquo;s attorney 
+      conceded it is not in the code. The Hearing Examiner identified the same problem 
+      independently. And the developer&rsquo;s own traffic engineer confirmed, in a separate 
+      submission, that the issue extends to 22 corridors countywide.
+    </p>
+    <p>
+      The code says the County should either build the roads or not approve the development. 
+      The County is choosing to do neither&mdash;and that is not what the code authorizes.
+    </p>
+  </div>
+</section>
+
+<!-- ─── SIGNUP ─── -->
+<div class="signup-banner">
+  <h2>Stay connected</h2>
+  <p>
+    Sign up for updates on land use hearings, concurrency decisions, and the 
+    Comprehensive Plan process.
+  </p>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdSgeDzyqoiAh0dqzRJFt38lflf98CoW9KroZd9PLeDcPxk9g/viewform" 
+     class="btn-signup" target="_blank" rel="noopener">Sign Up for Updates &rarr;</a>
+</div>
+
+<footer>
+  <strong>179Gridlock.com</strong><br>
+  A public information resource about transportation concurrency in the NE 179th Street corridor, 
+  Clark County, Washington.<br><br>
+  &copy; 2026 &middot; <a href="mailto:info@179gridlock.com">Contact</a>
+</footer>
+
+</body>
+</html>
