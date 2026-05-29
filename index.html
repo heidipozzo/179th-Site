@@ -20,7 +20,6 @@
       --text: #2c2c2c;
       --text-light: #5a5a5a;
       --line: #d4cdc0;
-      --blue: #2980b9;
       --amber: #f39c12;
       --amber-bg: #fef9e7;
       --green: #27ae60;
@@ -39,9 +38,11 @@
     .container-narrow { max-width: 720px; margin: 0 auto; padding: 0 32px; }
 
     /* Alert banner */
-    .alert-banner { background: var(--amber-bg); border-bottom: 1px solid #f0dca0; padding: 12px 32px; font-family: var(--sans); font-size: 14px; text-align: center; }
-    .alert-banner strong { color: var(--ink); }
-    .alert-banner a { color: var(--red); font-weight: 600; }
+    .alert-banner { background: var(--red); border-bottom: none; padding: 16px 32px; font-family: var(--sans); font-size: 15px; text-align: center; color: white; }
+    .alert-banner strong { color: white; }
+    .alert-banner a { color: white; font-weight: 600; text-decoration: underline; }
+    .alert-banner .btn-banner { display: inline-block; margin-left: 16px; padding: 8px 20px; background: white; color: var(--red); font-weight: 700; font-size: 13px; border-radius: 5px; text-decoration: none; }
+    .alert-banner .btn-banner:hover { text-decoration: none; background: var(--warm); }
 
     /* Nav */
     nav { background: var(--ink); padding: 14px 32px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
@@ -77,9 +78,11 @@
     p { margin-bottom: 16px; }
 
     /* Mechanism cards */
-    .mechanisms { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 32px 0; }
-    .mechanism { background: white; border: 1px solid var(--line); border-radius: 8px; padding: 28px; }
-    .mechanism .num { font-family: var(--sans); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--red); margin-bottom: 12px; }
+    .mechanisms { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 32px 0; }
+    .mechanism { background: white; border: 1px solid var(--line); border-radius: 8px; padding: 24px; }
+    .mechanism .num { font-family: var(--sans); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--red); margin-bottom: 12px; }
+    .mechanism h3 { font-size: 17px; }
+    .mechanism p { font-size: 14px; }
 
     /* Quotes */
     blockquote { border-left: 3px solid var(--ink); padding: 20px 28px; margin: 28px 0; background: rgba(26,39,68,0.03); font-style: italic; }
@@ -157,6 +160,11 @@
       nav { padding: 12px 16px; gap: 12px; }
       .evidence-table { font-size: 12px; }
       .evidence-table th, .evidence-table td { padding: 8px; }
+      .mechanisms { grid-template-columns: repeat(2, 1fr); }
+      .alert-banner .btn-banner { display: block; margin: 10px auto 0; width: fit-content; }
+    }
+    @media (max-width: 480px) {
+      .mechanisms { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -164,8 +172,9 @@
 
 <!-- ALERT BANNER -->
 <div class="alert-banner">
-  <strong>April 27 Update:</strong> The Council selected Preferred Alternative 2, increasing corridor density. The concurrency problems documented here remain unresolved. Adoption is targeted for October 2026.
-  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdSgeDzyqoiAh0dqzRJFt38lflf98CoW9KroZd9PLeDcPxk9g/viewform" target="_blank" rel="noopener">Stay connected &rarr;</a>
+  <strong>April 27 Update:</strong> The Council selected Preferred Alternative 2, increasing corridor density. The concurrency problems documented here remain unresolved. Adoption targeted October 2026.
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdSgeDzyqoiAh0dqzRJFt38lflf98CoW9KroZd9PLeDcPxk9g/viewform"
+     target="_blank" rel="noopener" class="btn-banner">Stay Connected &rarr;</a>
 </div>
 
 <!-- NAV -->
